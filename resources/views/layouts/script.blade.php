@@ -16,6 +16,8 @@
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <!-- Base Js File -->
     <script src="{{ asset('assets/js/base.js') }}"></script>
+    {{-- Webcam --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
 
     <script>
         am4core.ready(function () {
@@ -65,3 +67,5 @@
             ];
         }); // end am4core.ready()
     </script>
+
+    @stack('myscript')

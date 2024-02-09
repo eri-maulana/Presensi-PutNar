@@ -37,6 +37,14 @@
                 <h4>Login</h4>
             </div>
             <div class="section mt-1 mb-5">
+                @php
+                    $messagewarning = Session::get('warning');
+                @endphp
+                @if (Session::get('warning'))
+                <div class="alert alert-danger">
+                    {{ $messagewarning }}
+                </div>
+                @endif
                 <form action="/proseslogin" method="post">
                     @csrf
                     <div class="form-group boxed">
@@ -57,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="form-links  mt-2">
+                    <div class="form-links mt-2">
                         <div><a href="page-forgot-password.html" class="text-muted ">Forgot Password?</a></div>
                     </div>
 
