@@ -34,7 +34,7 @@
     <div class="row" style="margin-top: 70px;">
         <div class="col">
 
-            <input type="hidden" id="lokasi">
+            <input type="text" class="form-control" id="lokasi">
 
             <div class="webcam-capture">
 
@@ -43,10 +43,17 @@
     </div>
     <div class="row mt-3">
         <div class="col">
-            <button class="btn btn-primary btn-block">
+            @if ($cek > 0)
+            <button id="takeabsen" class="btn btn-danger btn-block">
                 <ion-icon name="camera-outline"></ion-icon>
-                Absen
+                Absen Pulang
+            </button> 
+            @else
+            <button id="takeabsen" class="btn btn-primary btn-block">
+                <ion-icon name="camera-outline"></ion-icon>
+                Absen Masuk
             </button>
+            @endif
         </div>
     </div>
     <div class="row mt-3">
@@ -91,5 +98,39 @@
         function errorCallback() {
 
         }
+
+        $("#takeabsen").click(function(e) {
+            Webcam.snap(function(uri) {
+                image = uri;
+            });
+            var lokasi = $('#lokasi').val();
+            $.ajax({
+                type: 'POST',
+                url: '/presensi/store',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    image: image,
+                    lokasi: lokasi
+                },
+                cache: false,
+                success: function(respond) {
+                    var status = respond.split('|');
+                    if (status[0] == 'success') {
+                        Swal.fire({
+                            title: 'Berhasil !',
+                            text: status[1],
+                            icon: 'success',
+                        })
+                        setTimeout("location.href='/dashboard'", 3000);
+                    } else {
+                        Swal.fire({
+                            title: 'Error !',
+                            text: status[1],
+                            icon: 'error',
+                        })
+                    }
+                }
+            })
+        })
     </script>
 @endpush

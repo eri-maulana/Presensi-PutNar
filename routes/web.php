@@ -33,4 +33,5 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 
     // presensi
     Route::get('/presensi/create', [PresensiController::class, 'create']);
+    Route::post('/presensi/store', [PresensiController::class, 'store']);
 });
