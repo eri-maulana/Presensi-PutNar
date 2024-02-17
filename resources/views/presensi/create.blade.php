@@ -34,7 +34,7 @@
     <div class="row" style="margin-top: 70px;">
         <div class="col">
 
-            <input type="hidden" class="form-control" id="lokasi">
+            <input type="text" class="form-control" id="lokasi">
 
             <div class="webcam-capture">
 
@@ -68,6 +68,9 @@
     <audio id="notifikasi_out">
         <source src="{{ asset('assets/sound/notifikasi_out.mp3') }}" type="audio/mpeg">
     </audio>
+    <audio id="radius_sound">
+        <source src="{{ asset('assets/sound/radius_sound.mp3') }}" type="audio/mpeg">
+    </audio>
 @endsection
 
 @push('myscript')
@@ -75,6 +78,7 @@
         // Audio
         var notifikasi_in = document.getElementById('notifikasi_in');
         var notifikasi_out = document.getElementById('notifikasi_out');
+        var radius_sound = document.getElementById('radius_sound');
 
 
 
@@ -100,11 +104,11 @@
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            var circle = L.circle([position.coords.latitude, position.coords.longitude], {
+            var circle = L.circle([-6.1944491,106.8229198], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 20
+                radius: 50
             }).addTo(map);
         }
 
@@ -141,6 +145,9 @@
                         })
                         setTimeout("location.href='/dashboard'", 3000);
                     } else {
+                        if (status[2] == 'radius') {
+                            radius_sound.play();
+                        }
                         Swal.fire({
                             title: 'Error !',
                             text: status[1],
