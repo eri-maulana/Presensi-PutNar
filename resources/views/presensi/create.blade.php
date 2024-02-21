@@ -16,6 +16,7 @@
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 <style>
     .webcam-capture,
     .webcam-capture video {
@@ -44,15 +45,15 @@
     <div class="row mt-3">
         <div class="col">
             @if ($cek > 0)
-            <button id="takeabsen" class="btn btn-danger btn-block">
-                <ion-icon name="camera-outline"></ion-icon>
-                Absen Pulang
-            </button> 
+                <button id="takeabsen" class="btn btn-danger btn-block">
+                    <ion-icon name="camera-outline"></ion-icon>
+                    Absen Pulang
+                </button>
             @else
-            <button id="takeabsen" class="btn btn-primary btn-block">
-                <ion-icon name="camera-outline"></ion-icon>
-                Absen Masuk
-            </button>
+                <button id="takeabsen" class="btn btn-primary btn-block">
+                    <ion-icon name="camera-outline"></ion-icon>
+                    Absen Masuk
+                </button>
             @endif
         </div>
     </div>
@@ -99,12 +100,11 @@
         function successCallback(position) {
             lokasi.value = position.coords.latitude + ',' + position.coords.longitude;
             var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 17);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            var circle = L.circle([-6.1944491,106.8229198], {
+            var circle = L.circle([position.coords.latitude, position.coords.longitude], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,

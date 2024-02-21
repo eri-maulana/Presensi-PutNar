@@ -49,7 +49,7 @@
                     @csrf
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="nim" class="form-control" id="nim" name="nim" placeholder="NIM">
+                            <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM">
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
