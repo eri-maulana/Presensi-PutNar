@@ -178,6 +178,49 @@
            </div>
        </div> -->
    </div> --}}
+
+   <div id="rekappresensi">
+    <h3>Rekap Presensi {{ $namabulan[$bulanini] . " " . $tahunini }}</h3>
+    <div class="row ">
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body p-1 text-center">
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <ion-icon name="calendar-outline" style="font-size: 1.8rem" class=" text-success"></ion-icon>
+                    <span class="d-block mt-0 ">Hadir</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body p-1 text-center">
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <ion-icon name="newspaper-outline" style="font-size: 1.8rem" class=" text-secondary"></ion-icon>
+                    <span class="d-block mt-0 ">Izin</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body p-1 text-center">
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <ion-icon name="medkit-outline" style="font-size: 1.8rem" class=" text-warning"></ion-icon>
+                    <span class="d-block mt-0 ">Sakit</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body p-1 text-center">
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <ion-icon name="alarm-outline" style="font-size: 1.8rem" class=" text-danger"></ion-icon>
+                    <span class="d-block mt-0 ">Telat</span>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+
    <div class="presencetab mt-2">
        <div class="tab-pane fade show active" id="pilled" role="tabpanel">
            <ul class="nav nav-tabs style1" role="tablist">
