@@ -21,10 +21,10 @@ class PresensiController extends Controller
         $nim            = Auth::guard('mahasiswa')->user()->nim;
         $tgl_presensi   = date('Y-m-d');
         $jam            = date('h:i:s');
-        // jakarta -6.2488576,106.8302336
-        // sukabumi -6.9535013,107.0353595
-        $latitudekantor = -6.9535013;
-        $langitudekantor = 107.0353595;
+        // jakarta -6.22592,106.8302336
+        // sukabumi 6.9534653,107.0355653
+        $latitudekantor = -6.22592;
+        $langitudekantor = 106.8302336;
         $lokasi         = $request->lokasi;
         $lokasiuser     = explode(',', $lokasi);
         $latitudeuser   = $lokasiuser[0];

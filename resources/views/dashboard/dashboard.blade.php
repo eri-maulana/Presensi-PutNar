@@ -7,8 +7,8 @@
            <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
        </div>
        <div id="user-info">
-           <h2 id="user-name">Adam Abdi Al A'la</h2>
-           <span id="user-role">Head of IT</span>
+           <h2 id="user-name">{{ Auth::guard('mahasiswa')->user()->nama_lengkap }}</h2>
+           <span id="user-role">{{ Auth::guard('mahasiswa')->user()->kelas }}</span>
        </div>
    </div>
 </div>
@@ -93,9 +93,9 @@
                         <div class="iconpresence">
                             @if ($presensihariini != null && $presensihariini->jam_out)
                                 @php
-                                    $path = Storage::url("uploads/absensi/$presensihariini->foto_out")
+                                    $path_out = Storage::url("uploads/absensi/$presensihariini->foto_out")
                                 @endphp
-                                <img src="{{ url($path) }}" alt="foto absen keluar" class="imaged w64">
+                                <img src="{{ url($path_out) }}" alt="foto absen keluar" class="imaged w64">
                             @else
                             <ion-icon name="camera"></ion-icon>  
                             @endif
@@ -185,7 +185,9 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-1 text-center">
-                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">
+                        {{ $rekappresensi->jmlhadir }}
+                    </span>
                     <ion-icon name="calendar-outline" style="font-size: 1.8rem" class=" text-success"></ion-icon>
                     <span class="d-block mt-0 ">Hadir</span>
                 </div>
@@ -194,7 +196,7 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-1 text-center">
-                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">0</span>
                     <ion-icon name="newspaper-outline" style="font-size: 1.8rem" class=" text-secondary"></ion-icon>
                     <span class="d-block mt-0 ">Izin</span>
                 </div>
@@ -203,7 +205,7 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-1 text-center">
-                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">0</span>
                     <ion-icon name="medkit-outline" style="font-size: 1.8rem" class=" text-warning"></ion-icon>
                     <span class="d-block mt-0 ">Sakit</span>
                 </div>
@@ -212,7 +214,9 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-1 text-center">
-                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">10</span>
+                    <span class="badge bg-danger position-absolute " style="top: 2px; left: 9px;z-index: 9;">
+                        {{ $rekappresensi->jmlterlambat }}
+                    </span>
                     <ion-icon name="alarm-outline" style="font-size: 1.8rem" class=" text-danger"></ion-icon>
                     <span class="d-block mt-0 ">Telat</span>
                 </div>
@@ -262,48 +266,21 @@
            </div>
            <div class="tab-pane fade" id="profile" role="tabpanel">
                <ul class="listview image-listview">
-                   <li>
-                       <div class="item">
-                           <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                           <div class="in">
-                               <div>Edward Lindgren</div>
-                               <span class="text-muted">Designer</span>
-                           </div>
-                       </div>
-                   </li>
-                   <li>
-                       <div class="item">
-                           <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                           <div class="in">
-                               <div>Emelda Scandroot</div>
-                               <span class="badge badge-primary">3</span>
-                           </div>
-                       </div>
-                   </li>
-                   <li>
-                       <div class="item">
-                           <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                           <div class="in">
-                               <div>Henry Bove</div>
-                           </div>
-                       </div>
-                   </li>
-                   <li>
-                       <div class="item">
-                           <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                           <div class="in">
-                               <div>Henry Bove</div>
-                           </div>
-                       </div>
-                   </li>
-                   <li>
-                       <div class="item">
-                           <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                           <div class="in">
-                               <div>Henry Bove</div>
-                           </div>
-                       </div>
-                   </li>
+                @foreach ($leaderboard as $d)
+                <li>
+                    <div class="item">
+                        <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                        <div class="in">
+                            <div>
+                                <b class="text-lg">{{ $d->nama_lengkap }}</b> <br>
+                                <small class="text-muted text-sm">{{ $d->kelas }}</small>
+                            </div>
+                            <span class="badge {{ $d->jam_in < "07:00" ? "bg-success" : "bg-danger"  }}">{{ $d->jam_in }}</span>
+                        </div>
+                    </div>
+                </li>
+                    
+                @endforeach
                </ul>
            </div>
 
