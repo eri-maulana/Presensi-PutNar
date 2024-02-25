@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class PresensiController extends Controller
@@ -94,5 +96,53 @@ class PresensiController extends Controller
         $kilometers = $miles * 1.609344;
         $meters = $kilometers * 1000;
         return compact('meters');
+    }
+
+    function editprofile()
+    {
+        $nim = Auth::guard('mahasiswa')->user()->nim;
+        $mahasiswa = DB::table('mahasiswa')->where('nim', $nim)->first();
+        return view('presensi.editprofile', compact('mahasiswa'));
+    }
+
+    function updateprofile(Request $request)
+    {
+        $nim = Auth::guard('mahasiswa')->user()->nim;
+        $nama_lengkap = $request->nama_lengkap;
+        $no_hp = $request->no_hp;
+        $password = Hash::make($request->password);
+
+        $mahasiswa = DB::table('mahasiswa')->where('nim', $nim)->first();
+        if ($request->hasFile('foto')) {
+            $foto = $nim . "." . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = $mahasiswa->foto;
+        }
+
+        if (empty($request->password)) {
+            $data = [
+                'nama_lengkap' => $nama_lengkap,
+                'no_hp' => $no_hp,
+                'foto' => $foto
+            ];
+        } else {
+            $data = [
+                'nama_lengkap' => $nama_lengkap,
+                'no_hp' => $no_hp,
+                'password' => $password,
+                'foto' => $foto
+            ];
+        }
+
+        $update = DB::table('mahasiswa')->where('nim', $nim)->update($data);
+        if ($update) {
+            if ($request->hasFile('foto')) {
+                $folderPath = "public/uploads/mahasiswa/";
+                $request->file('foto')->storeAs($folderPath, $foto);
+            }
+            return Redirect::back()->with(['success' => 'Data Berhasil di Update']);
+        } else {
+            return Redirect::back()->with(['error' => 'Data Gagal di Update']);
+        }
     }
 }

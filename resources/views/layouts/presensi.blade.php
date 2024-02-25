@@ -32,6 +32,10 @@
     @yield('header')
     <!-- * App Header -->
 
+    {{-- Form Edit Profile --}}
+    @yield('form')
+    {{-- Form Edit Profile --}}
+    
 
     <!-- App Capsule -->
     <div id="appCapsule">
@@ -39,7 +43,7 @@
     </div>
     <!-- * App Capsule -->
 
-    @include('layouts.bottonNav')
+    @include('layouts.bottomNav')
 
     @include('layouts.script')
     
