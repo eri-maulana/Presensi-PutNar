@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,17 +25,17 @@ class PresensiController extends Controller
         $tgl_presensi   = date('Y-m-d');
         $jam            = date('h:i:s');
         // jakarta -6.22592,106.8302336
-        // sukabumi 6.9534653,107.0355653
-        $latitudekantor = -6.22592;
-        $langitudekantor = 106.8302336;
+        // sukabumi -6.9181652,106.93152
+        $latitudekantor = -6.9181652;
+        $longitudekantor = 106.93152;
         $lokasi         = $request->lokasi;
-        $lokasiuser     = explode(',', $lokasi);
+        // dd($lokasi);
+        $lokasiuser     = explode(",", $lokasi);
         $latitudeuser   = $lokasiuser[0];
         $longitudeuser  = $lokasiuser[1];
-
-        $jarak          = $this->distance($latitudekantor, $langitudekantor, $latitudeuser, $longitudeuser);
+        $jarak          = $this->distance($latitudekantor, $longitudekantor, $latitudeuser, $longitudeuser);
         $radius         = round($jarak['meters']);
-
+        // dd($radius);
         $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nim', $nim)->count();
         if ($cek > 0) {
             $ket = "out";
@@ -62,7 +63,7 @@ class PresensiController extends Controller
                     echo "success|Terimakasih, Hati Hati Dijalan|out";
                     Storage::put($file, $image_base64);
                 } else {
-                    echo "error|Gagal Login, Silahkan Coba Lagi!|in";
+                    echo "error|Gagal Absen, Silahkan Coba Lagi!|in";
                 }
             } else {
                 $data = [
@@ -77,7 +78,7 @@ class PresensiController extends Controller
                     echo "success|Terimakasih, Selamat Belajar|in";
                     Storage::put($file, $image_base64);
                 } else {
-                    echo "error|Gagal Login, Silahkan Coba Lagi!|in";
+                    echo "error|Gagal Absen, Silahkan Coba Lagi!|in";
                 }
             }
         }
@@ -144,5 +145,31 @@ class PresensiController extends Controller
         } else {
             return Redirect::back()->with(['error' => 'Data Gagal di Update']);
         }
+    }
+
+    public function histori()
+    {
+        $namaBulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        return view('presensi.histori', compact('namaBulan'));
+    }
+
+    public function gethistori(Request $request){
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        // echo $bulan . " dan " . $tahun;
+        $nim = Auth::guard('mahasiswa')->user()->nim;
+
+        // echo $bulan . "dan" . $tahun;
+
+        $histori = DB::table('presensi')
+        ->whereRaw("MONTH(tgl_presensi)='".$bulan. "'")
+        ->whereRaw("YEAR(tgl_presensi)='".$tahun. "'")
+        ->where('nim', $nim)
+        ->orderBy('tgl_presensi')
+        ->get();
+
+        // dd($histori);
+        return view('presensi.gethistori', compact('histori'));
+
     }
 }
