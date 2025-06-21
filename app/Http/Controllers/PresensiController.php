@@ -174,7 +174,27 @@ class PresensiController extends Controller
     }
 
     public function izin(){
-        return view('presensi.izin');
+        $namaBulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        return view('presensi.izin', compact('namaBulan'));
+    }
+
+    public function getizin(Request $request){
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        // echo $bulan . " dan " . $tahun;
+        $nim = Auth::guard('mahasiswa')->user()->nim;
+
+        // echo $bulan . "dan" . $tahun;
+
+        $dataizin = DB::table('pengajuan_izin')
+        ->whereRaw("MONTH(tgl_izin)='".$bulan. "'")
+        ->whereRaw("YEAR(tgl_izin)='".$tahun. "'")
+        ->where('nim', $nim)
+        ->orderBy('tgl_izin', 'desc')
+        ->get();
+
+        // dd($histori);
+        return view('presensi.getizin', compact('dataizin'));
     }
 
     public function buatizin(){

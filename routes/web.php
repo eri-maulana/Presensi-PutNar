@@ -47,5 +47,6 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::get('/presensi/izin', [PresensiController::class, 'izin']);
     Route::get('/presensi/buatizin', [PresensiController::class, 'buatizin']);
     Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
+    Route::post('/getizin', [PresensiController::class, 'getizin']);
 
 });

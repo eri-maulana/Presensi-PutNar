@@ -1,7 +1,29 @@
 @extends('layouts.presensi')
 @section('header')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <style>
+        .datepicker-modal {
+            max-height: 425px !important;
+        }
 
+        .datepicker-date-display {
+            background-color: #007bff !important;
+
+        }
+        .datepicker-cancel,
+        .datepicker-done {
+            color: #007bff !important;
+        }
+
+        .datepicker-table td.is-selected {
+            background-color: #007bff !important;
+            color: #fff !important;
+        }
+
+        .datepicker-table td.is-today {
+            color: #007bff ;
+        }
+    </style>
     <!-- App Header -->
     <div class="appHeader bg-primary text-light">
         <div class="left">

@@ -136,7 +136,7 @@
                     <div class="card">
                         <div class="card-body p-1 text-center">
                             <span class="badge bg-danger position-absolute "
-                                style="top: 2px; left: 9px;z-index: 9;">0</span>
+                                style="top: 2px; left: 9px;z-index: 9;">{{ $rekapizin->jmlizin }}</span>
                             <ion-icon name="newspaper-outline" style="font-size: 1.8rem" class=" text-secondary"></ion-icon>
                             <span class="d-block mt-0 ">Izin</span>
                         </div>
@@ -146,7 +146,7 @@
                     <div class="card">
                         <div class="card-body p-1 text-center">
                             <span class="badge bg-danger position-absolute "
-                                style="top: 2px; left: 9px;z-index: 9;">0</span>
+                                style="top: 2px; left: 9px;z-index: 9;">{{ $rekapizin->jmlsakit }}</span>
                             <ion-icon name="medkit-outline" style="font-size: 1.8rem" class=" text-warning"></ion-icon>
                             <span class="d-block mt-0 ">Sakit</span>
                         </div>
