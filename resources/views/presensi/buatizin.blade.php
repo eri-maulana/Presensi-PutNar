@@ -7,21 +7,21 @@
         }
 
         .datepicker-date-display {
-            background-color: #007bff !important;
+            background-color: #AC1754 !important;
 
         }
         .datepicker-cancel,
         .datepicker-done {
-            color: #007bff !important;
+            color: #AC1754 !important;
         }
 
         .datepicker-table td.is-selected {
-            background-color: #007bff !important;
+            background-color: #AC1754 !important;
             color: #fff !important;
         }
 
         .datepicker-table td.is-today {
-            color: #007bff ;
+            color: #AC1754 ;
         }
     </style>
     <!-- App Header -->
