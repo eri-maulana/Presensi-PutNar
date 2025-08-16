@@ -26,6 +26,13 @@ Route::middleware(['guest:mahasiswa'])->group(function () {
     Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 });
 
+Route::middleware(['guest:user'])->group(function () {
+    // sebelum login
+    Route::get('/panel', function () {
+        return view('auth.loginadmin');
+    })->name('loginadmin');
+});
+
 Route::middleware(['auth:mahasiswa'])->group(function () {
     // setelah login
     Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -50,3 +57,5 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::post('/getizin', [PresensiController::class, 'getizin']);
 
 });
+
+Route::get('/dashboardadmin',[DashboardController::class, 'dashboardadmin']);

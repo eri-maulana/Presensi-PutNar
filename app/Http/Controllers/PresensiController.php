@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +18,7 @@ class PresensiController extends Controller
         $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('nim', $nim)->count();
         return view('presensi.create', compact('cek'));
     }
+    
     public function store(Request $request)
     {
         $nim            = Auth::guard('mahasiswa')->user()->nim;

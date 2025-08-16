@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <style>
         .datepicker-modal {
-            max-height: 425px !important;
+            max-height: 470px !important;
         }
 
         .datepicker-date-display {
